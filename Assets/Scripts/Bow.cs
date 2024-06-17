@@ -10,6 +10,12 @@ public class Bow : MonoBehaviour
     private Animator playerAnimator; // Biến Animator của Player
     public float shootDoneDelay = 0.5f; // Thời gian chờ trước khi kích hoạt ShootDone
 
+    AudioManager audioManager;
+
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void Start()
     {
         // Tìm và gán Animator của Player
@@ -37,6 +43,7 @@ public class Bow : MonoBehaviour
     {
         if (playerAnimator != null && playerAnimator.runtimeAnimatorController != null)
         {
+            audioManager.PlayVFX(audioManager.humanattack);
             playerAnimator.SetTrigger("Shoot"); // Kích hoạt trigger cho hoạt ảnh tấn công
             StartCoroutine(ShootDoneCoroutine());
         }
@@ -47,7 +54,7 @@ public class Bow : MonoBehaviour
         GameObject newArrow = Instantiate(arrow, shotPoint.position, shotPoint.rotation);
         newArrow.GetComponent<Rigidbody2D>().velocity = transform.right * launchForce;
 
-        Destroy(newArrow, 3f); // Xóa mũi tên sau 3 giây
+        Destroy(newArrow, 2f); // Xóa mũi tên sau 2 giây
     }
 
     private IEnumerator ShootDoneCoroutine()

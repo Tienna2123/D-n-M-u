@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    public float damage = 1f; // Số lượng sát thương của mũi tên
     private Rigidbody2D rb;
     private bool hasHit;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
